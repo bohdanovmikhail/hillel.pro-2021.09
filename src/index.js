@@ -1,23 +1,12 @@
-import { ToDoFilter } from "./components/ToDoFilter";
-import { ToDoItem } from "./components/ToDoItem";
-import { BaseModel } from "./core/BaseModel";
+import { ToDo } from './pages/ToDo';
+import { fromComponent } from './helpers';
 
 // Главный файл, с которого начинается все приложение
-const itemModel = new BaseModel({
-  title: "TEST",
-  done: false
+const app = document.getElementById('app');
+
+const [todoElement, todoModel] = fromComponent(ToDo)({
+  filter: null,
+  list: [],
 });
-const item = new ToDoItem(itemModel);
 
-const filterModel = new BaseModel({
-  filter: null
-});
-const filter = new ToDoFilter(filterModel);
-
-document.body.append(filter.outElement);
-document.body.append(item.outElement);
-
-let iterator = 0;
-setInterval(() => {
-  itemModel.set("title", `Iterate: ${iterator++}`);
-}, 1000);
+app.append(todoElement);
